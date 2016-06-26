@@ -1,3 +1,4 @@
+#
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :update, :destroy]
 
@@ -6,7 +7,9 @@ class PlaylistsController < ApplicationController
   def index
     @playlists = Playlist.all
 
-    render json: @playlists
+    signed_in_user_playlists = all_playlists.select { |i| i.user_id == params[:id].to_i }
+
+    render json: signed_in_user_playlists
   end
 
   # GET /playlists/1
@@ -18,8 +21,8 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
-    @playlist = Playlist.new(playlist_params)
-
+    # @playlist = Playlist.new(playlist_params)
+    @playlist = current_user.playlists.build(playlist_params)
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
     else
