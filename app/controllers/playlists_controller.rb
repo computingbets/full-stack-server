@@ -4,21 +4,29 @@ class PlaylistsController < ApplicationController
   # GET /playlists
   # GET /playlists.json
   def index
-    @playlists = Playlist.all
+    @playlists = current_user.playlists
 
     render json: @playlists
   end
 
+  # def indexPlaylists
+  #   signed_in_user_matches = all_matches.select { |i| i.user_id == params[:id].to_i }
+  #   #  render json: @my_matches
+  #   render json: signed_in_user_matches
+  # end
+
   # GET /playlists/1
   # GET /playlists/1.json
   def show
-    render json: @playlist
+    render json: Playlist.find(params[:user_id])
   end
 
   # POST /playlists
   # POST /playlists.json
   def create
     @playlist = Playlist.new(playlist_params)
+
+    #@playlist = current_user.playlists.build(playlist_params)
 
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
@@ -54,6 +62,6 @@ class PlaylistsController < ApplicationController
     end
 
     def playlist_params
-      params[:playlist]
+      params.require(:playlist).permit(:song_id, :user_id)
     end
 end

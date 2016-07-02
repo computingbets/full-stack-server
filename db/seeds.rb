@@ -5,5 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-  Song.create([{ title: 'Pretty Pimpin', artist: 'Kurt Vile'}, {
-  title: 'Forever Heavy', artist: 'Black Moth Super Rainbow'}])
+  Song.create([{ title: 'Big Rock Candy Mountain', artist: 'Harry McClintock', links: 'http://hypem.com/track/16hkh/Harry+McClintock+-+Big+Rock+Candy+Mountain'}, {
+  title: 'Silver Screen', artist: 'Felix Da Housecat', links: 'http://hypem.com/track/1jt60/Felix+Da+Housecat+-+Silver+Screen+(Shower+Scene)'}])
