@@ -18,7 +18,10 @@ class PlaylistsController < ApplicationController
   # GET /playlists/1
   # GET /playlists/1.json
   def show
-    render json: Playlist.find(params[:user_id])
+    puts params
+    render json: Playlist.where("user_id= #{params[:id]}").find_each do | playlist |
+      puts playlist
+      end
   end
 
   # POST /playlists
