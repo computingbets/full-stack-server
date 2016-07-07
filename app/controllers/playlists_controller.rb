@@ -1,5 +1,7 @@
-class PlaylistsController < ApplicationController
+#
+class PlaylistsController < ProtectedController
   before_action :set_playlist, only: [:show, :update, :destroy]
+  #skip_before_action :authenticate, only: [:index]
 
   # GET /playlists
   # GET /playlists.json
@@ -29,11 +31,13 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
-    @playlist = Playlist.new(playlist_params)
+    # if playlist_params[:user_id].to_s == current_user.id
+    #   @playlist = Playlist.new(playlist_params)
 
-    #@playlist = current_user.playlists.build(playlist_params)
+    @playlist = current_user.playlists.build(playlist_params)
 
     if @playlist.save
+      puts 'in playlist save'
       render json: @playlist, status: :created, location: @playlist
     else
       render json: @playlist.errors, status: :unprocessable_entity
@@ -62,11 +66,11 @@ class PlaylistsController < ApplicationController
 
   private
 
-    def set_playlist
-      @playlist = Playlist.find(params[:id])
-    end
+  def set_playlist
+    @playlist = Playlist.find(params[:id])
+  end
 
-    def playlist_params
-      params.require(:playlist).permit(:song_id, :user_id)
-    end
+  def playlist_params
+    params.require(:playlist).permit(:song_id, :user_id)
+  end
 end
