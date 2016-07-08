@@ -67,7 +67,7 @@ class PlaylistsController < ProtectedController
   private
 
   def set_playlist
-    @playlist = Playlist.find(params[:id])
+    @playlist = current_user.playlists.find(params[:id])
   end
 
   def playlist_params
