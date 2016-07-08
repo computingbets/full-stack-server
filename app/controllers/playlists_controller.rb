@@ -34,7 +34,7 @@ class PlaylistsController < ProtectedController
     # if playlist_params[:user_id].to_s == current_user.id
     #   @playlist = Playlist.new(playlist_params)
 
-    @playlist = current_user.playlists.new(playlist_params)
+    @playlist = current_user.playlists.build(strong_playlist_params(params))
 
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
@@ -64,12 +64,11 @@ class PlaylistsController < ProtectedController
   end
 
   private
+    def set_playlist
+      @playlist = current_user.playlists.find(params[:id])
+    end
 
-  def set_playlist
-    @playlist = current_user.playlists.find(params[:id])
-  end
-
-  def playlist_params
-    params.require(:playlist).permit(:song_id, :user_id)
-  end
+    def strong_playlist_params
+      params.require(:playlist).permit(:song_id, :user_id)
+    end
 end
