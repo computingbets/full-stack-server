@@ -1,6 +1,6 @@
 #
 class PlaylistsController < ProtectedController
-  before_action :set_playlist, only: [:show, :update, :destroy]
+  before_action :set_playlist, only: [:show, :update, :destroy, :create]
   #skip_before_action :authenticate, only: [:index]
 
   # GET /playlists
@@ -34,7 +34,7 @@ class PlaylistsController < ProtectedController
     # if playlist_params[:user_id].to_s == current_user.id
     #   @playlist = Playlist.new(playlist_params)
 
-    @playlist = Playlist.new(playlist_params)
+    # @playlist = current_user.playlists.build(playlist_params)
 
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
