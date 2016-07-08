@@ -1,10 +1,10 @@
-class SongsController < ApplicationController
+class SongsController < ProtectedController
   before_action :set_song, only: [:show, :update, :destroy]
 
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.all
+    @songs = current_user.songs
 
     render json: @songs
   end
@@ -18,7 +18,7 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(song_params)
+    @song = current_user.songs.build(song_params)
 
     if @song.save
       render json: @song, status: :created, location: @song
@@ -30,7 +30,7 @@ class SongsController < ApplicationController
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
   def update
-    @song = Song.find(params[:id])
+    # @song = Song.find(params[:id])
 
     if @song.update(song_params)
       head :no_content
@@ -50,7 +50,7 @@ class SongsController < ApplicationController
   private
 
     def set_song
-      @song = Song.find(params[:id])
+      @song = current_user.songs.find(params[:id])
     end
 
     def song_params
