@@ -20,12 +20,12 @@ class PlaylistsController < ProtectedController
   # GET /playlists/1
   # GET /playlists/1.json
   def show
-    playlist = current_user.playlists.find(params[:id])
+    # @playlist = current_user.playlists.find(params[:id])
     # puts params
     # render json: Playlist.where("user_id= #{params[:id]}").find_each do | playlist |
     #   puts playlist
     #   end
-    render json: playlist
+    render json: @playlist
   end
 
   # POST /playlists
@@ -34,7 +34,7 @@ class PlaylistsController < ProtectedController
     # if playlist_params[:user_id].to_s == current_user.id
     #   @playlist = Playlist.new(playlist_params)
 
-    @playlist = current_user.playlists.build(playlist_params)
+    @playlist = Playlist.new(playlist_params)
 
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
