@@ -68,7 +68,7 @@ class PlaylistsController < ProtectedController
       @playlist = current_user.playlists.find(params[:id])
     end
 
-    def strong_playlist_params
+    def strong_playlist_params params
       params.require(:playlist).permit(:song_id, :user_id)
     end
 end
