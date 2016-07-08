@@ -34,7 +34,7 @@ class PlaylistsController < ProtectedController
     # if playlist_params[:user_id].to_s == current_user.id
     #   @playlist = Playlist.new(playlist_params)
 
-    @playlist = current_user.playlists.build(strong_playlist_params)
+    @playlist = current_user.playlists.build(playlist_params)
 
     if @playlist.save
       render json: @playlist, status: :created, location: @playlist
